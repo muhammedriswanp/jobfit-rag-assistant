@@ -1,0 +1,626 @@
+
+
+Yes. I think we now have a clear direction.
+
+# 1. What is our Goal?
+
+Not just to finish Week 1 and Week 2 notebooks.
+
+The goal is to build **one resume-worthy project** while learning.
+
+### Project: JobFit RAG Assistant
+
+A system that:
+
+* Takes a Job Description (JD)
+* Takes your Resume
+* Finds matching skills/projects
+* Calculates similarity
+* Identifies missing skills
+* Summarizes JDs
+* Answers questions about JDs
+* Recommends which of your projects to showcase
+
+Later:
+
+* Store Resume + JDs in ChromaDB
+* Add RAG retrieval
+* Add LLM prompting
+* Add Function Calling
+* Add Hallucination prevention
+
+By the end:
+
+```text
+Resume
+   │
+   ▼
+Embeddings
+   │
+   ▼
+Vector Database
+   │
+   ▼
+Retriever
+   │
+   ▼
+LLM
+   │
+   ▼
+Job Match Assistant
+```
+
+This aligns with:
+
+* NLP
+* LLM
+* RAG
+* HuggingFace
+* Vector Search
+* FastAPI
+
+which are exactly the skills showing up in many AI/ML Engineer roles.
+
+---
+
+# 2. What do we build after Week 1?
+
+Week 1 = MVP (without RAG)
+
+```text
+JD
+ │
+ ▼
+Tokenizer
+ │
+ ▼
+Embedding Model
+ │
+ ▼
+Similarity Score
+ │
+ ▼
+JD Summary
+ │
+ ▼
+Question Answering
+```
+
+Week 1 goal:
+
+> Given a JD and my resume, show similarity score, summary, and answer questions.
+
+---
+
+# 3. Week 1 Plan (Project-Oriented)
+
+## Day 1
+
+### Learn
+
+Tokenization
+
+### Project Task
+
+Use:
+
+* Resume bullets
+* Project descriptions
+* JD requirements
+
+instead of random sentences.
+
+Example:
+
+```text
+Built MLflow pipeline for experiment tracking
+
+Experience with MLOps and Docker
+
+Knowledge of NLP and Transformers
+```
+
+Compare:
+
+* BERT tokenizer
+* RoBERTa tokenizer
+
+### Deliverable
+
+```text
+notebooks/
+    day01_tokenization.ipynb
+```
+
+---
+
+## Day 2
+
+### Learn
+
+input_ids
+
+attention_mask
+
+padding
+
+truncation
+
+### Project Task
+
+Take:
+
+* 3 Job Descriptions
+
+Examples:
+
+* AI Engineer
+* Data Scientist
+* NLP Engineer
+
+Tokenize using:
+
+* BERT
+* DistilBERT
+* RoBERTa
+
+Analyze:
+
+```text
+Token Count
+
+Input IDs
+
+Attention Mask
+
+Truncation
+```
+
+### Deliverable
+
+JD Tokenization Comparison Table
+
+---
+
+## Day 3
+
+### Learn
+
+Sentence Embeddings
+
+Cosine Similarity
+
+### Project Task
+
+This is where the project starts becoming useful.
+
+Create:
+
+```text
+Resume Bullet
+        vs
+JD Requirement
+```
+
+Examples:
+
+```text
+Built MLflow pipeline
+
+Experience in MLOps
+```
+
+```text
+Built CNN classifier
+
+Knowledge of NLP
+```
+
+Generate embeddings.
+
+Compute:
+
+```python
+cosine_similarity()
+```
+
+Output:
+
+```text
+Resume Bullet A -> 0.92
+
+Resume Bullet B -> 0.34
+```
+
+### Deliverable
+
+Skill Match Engine v1
+
+---
+
+## Day 4
+
+### Learn
+
+Attention
+
+Query
+
+Key
+
+Value
+
+### Project Task
+
+Take:
+
+```text
+Resume Bullet
+
+JD Requirement
+```
+
+Pass through DistilBERT.
+
+Visualize:
+
+```text
+Attention Scores
+```
+
+Write:
+
+```text
+Why semantic matching is better than keyword matching
+```
+
+This becomes README content later.
+
+### Deliverable
+
+1-page explanation
+
+---
+
+## Day 5
+
+### Learn
+
+HF Pipelines
+
+### Project Task
+
+Build 3 mini features.
+
+### Feature 1
+
+JD Summarizer
+
+Input:
+
+```text
+Long Job Description
+```
+
+Output:
+
+```text
+5-line Summary
+```
+
+---
+
+### Feature 2
+
+JD QA
+
+Question:
+
+```text
+What experience is required?
+```
+
+Answer:
+
+```text
+2+ years experience in Python
+```
+
+---
+
+### Feature 3
+
+Skill Extractor
+
+Prompt-like QA:
+
+```text
+What tools are required?
+```
+
+Output:
+
+```text
+Python
+Docker
+AWS
+MLflow
+```
+
+### Deliverable
+
+JobFit Assistant v0.1
+
+---
+
+# Week 1 Final Outcome
+
+At the end of Day 5 you'll already have:
+
+```text
+jobfit-rag-assistant
+
+├── Resume Analyzer
+├── JD Summarizer
+├── Similarity Scorer
+├── QA on JD
+└── Skill Extractor
+```
+
+No RAG yet.
+
+No ChromaDB yet.
+
+No LLM yet.
+
+But already useful.
+
+---
+
+# Week 2 Plan (Upgrade)
+
+## Day 6
+
+Add LLM generation
+
+Learn:
+
+```text
+Temperature
+Top-k
+Top-p
+```
+
+Use it to generate:
+
+```text
+Resume improvement suggestions
+```
+
+---
+
+## Day 7
+
+Prompt Engineering
+
+Convert JD →
+
+```json
+{
+  "role": "",
+  "skills": [],
+  "experience": ""
+}
+```
+
+---
+
+## Day 8
+
+Function Calling
+
+Functions:
+
+```python
+calculate_match_score()
+
+summarize_jd()
+
+extract_skills()
+```
+
+---
+
+## Day 9
+
+Hallucination Control
+
+Ensure assistant never says:
+
+```text
+You know LangChain
+```
+
+if your resume doesn't contain LangChain.
+
+---
+
+## Day 10
+
+ChromaDB
+
+Store:
+
+```text
+Resume
+Projects
+Job Descriptions
+```
+
+Retrieve:
+
+```text
+Top 3 matching resume bullets
+```
+
+Now it becomes a real RAG pipeline.
+
+---
+
+# Final Resume Project
+
+**JobFit RAG Assistant**
+
+**Tech Stack**
+
+* Python
+* HuggingFace Transformers
+* Sentence Transformers
+* ChromaDB
+* FastAPI
+* MLflow (later)
+* Docker (later)
+
+**Features**
+
+* Resume ↔ JD Semantic Matching
+* Skill Gap Analysis
+* Job Description Summarization
+* Question Answering
+* Vector Search
+* RAG-based Retrieval
+
+This gives you a much stronger portfolio project than a generic "AG News Semantic Search" because it solves a real problem you've actually been facing while applying for jobs. this my current idea but for you suggest a 10 day plan based on this topic -------------------------------------------------
+
+WEEK 1 — NLP FOUNDATIONS → TOKENIZATION → EMBEDDINGS → TRANSFORMERS → HF PIPELINES
+------------------------------------
+DAY 1 — Modern NLP Foundations & Tokenization Concepts
+What you learn
+● How NLP evolved into the transformer era
+● Why subword tokenization is necessary
+● How LLMs represent text internally
+Hands-on
+● Create 5–10 sample sentences
+● Tokenize them using BERT and RoBERTa tokenizers
+● Compare subword splits & token counts
+Dataset
+● Self-created sample sentences
+Deliverable
+Notebook comparing tokenization outputs.
+DAY 2 — HuggingFace Tokenizers (Deep Practical Understanding)
+What you learn
+● input_ids, tokens, attention_mask
+● Truncation & padding
+● Max sequence length
+Hands-on
+● Load 3 samples from the AG News dataset
+● Tokenize them using: BERT, DistilBERT, RoBERTa
+● Compare token patterns
+Dataset
+● AG News (first 3 rows)
+Deliverable
+Tokenization comparison table.
+DAY 3 — Sentence Embeddings & Semantic Similarity
+What you learn
+● How Sentence-BERT creates semantic embeddings
+● Cosine similarity as a measure of meaning
+● Differences between lexical similarity vs semantic similarity
+Hands-on
+● Encode 10 sentence pairs
+● Compute cosine similarity matrix
+● Identify strong/weak similarities
+Dataset
+● STS-B (use 10 pairs)
+Deliverable
+Similarity matrix + insights.
+DAY 4 — Transformer Architecture (Conceptual)
+What you learn
+● What self-attention does (practical intuition)
+● Query, Key, Value explained simply
+● Encoder vs Decoder differences
+Hands-on
+● Pass a sentence through DistilBERT
+● Print attention weights (even one layer is fine)
+● Write a 1-page intuitive explanation
+Dataset
+● Sample sentences
+Deliverable
+Short markdown explanation.
+
+DAY 5 — HuggingFace Pipelines (Sentiment, QA, Summarization)
+What you learn
+● Running NLP tasks with pipelines
+● Changing models inside pipelines
+● Interpreting logits and outputs
+Hands-on
+● Sentiment analysis → IMDB sample
+● QA → SQuAD sample
+● Summarization → CNN/DailyMail article
+Datasets
+● IMDB
+● SQuAD
+● CNN/DailyMail
+Deliverable
+Pipeline demo notebook. and after this 10 days we move to next phase ------------------------------------
+WEEK 2 — LLM BASICS → PROMPTING → FUNCTION CALLING → VECTOR SEARCH
+------------------------------------
+DAY 6 — LLM Architecture & Decoding Strategies
+What you learn
+● How GPT-style LLMs generate text
+● Temperature, top-k, top-p effects
+● Differences between major LLM families
+Hands-on
+● Generate 3 variations of output using different temperatures
+● Compare clarity, creativity, randomness
+Deliverable
+Comparative output document.
+DAY 7 — Prompt Engineering (Zero-shot,
+Few-shot, JSON)
+What you learn
+● Instruction design
+● Zero-shot vs Few-shot
+● Chain-of-Thought basics
+● Forcing structured output
+Hands-on
+● Extract information from messy text into clean JSON
+● Create 2–3 prompt variations and compare
+Dataset
+● Wikipedia paragraph copy
+Deliverable
+Reliable JSON-producing prompt.
+DAY 8 — Function Calling (LLM →
+Tools/API)
+What you learn
+● How LLMs choose which tool to call
+● JSON schema definitions
+● Tool-augmented workflows
+Hands-on
+● Create two functions (calculator operations)
+● Provide JSON schema
+● Test function calling
+Deliverable
+Working function-calling demo.
+DAY 9 — Improving Output Quality (Reducing Hallucinations)
+What you learn
+● How to spot hallucinations
+● How to constrain model behavior
+● When to use system prompts & directives
+Hands-on
+● Take a hallucinated response
+● Rewrite the prompt with constraints
+● Compare improved outputs
+Deliverable
+Before → After comparison notebook.
+DAY 10 — Vector Databases (ChromaDB) + Semantic Search
+What you learn
+● How vector stores hold embeddings
+● How top-k search retrieves context
+● Using metadata filters
+Hands-on
+● Chunk 10–15 lines of text
+● Embed & store in Chroma
+● Query and retrieve top-3 matches
+Dataset
+● Small paragraph from an article
+Deliverable
+Semantic search notebook. complete project with this topic. Did you think we can done this project by this topics?

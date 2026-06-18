@@ -1,0 +1,5 @@
+Experience with MLOps workflows.
+Knowledge of Docker and Kubernetes.
+Experience building NLP applications.
+Strong Python programming skills.
+Experience deploying machine learning models.
