@@ -1,626 +1,963 @@
+# JobFit RAG Assistant
 
+## Project Overview
 
-Yes. I think we now have a clear direction.
+JobFit RAG Assistant is an AI-powered system that helps job seekers analyze job descriptions against their resumes and project portfolios.
 
-# 1. What is our Goal?
+The system will:
 
-Not just to finish Week 1 and Week 2 notebooks.
+* Analyze Job Descriptions (JDs)
+* Match resume skills with job requirements
+* Identify skill gaps
+* Summarize job descriptions
+* Answer questions about job postings
+* Recommend relevant projects to showcase
+* Retrieve supporting evidence using RAG
 
-The goal is to build **one resume-worthy project** while learning.
-
-### Project: JobFit RAG Assistant
-
-A system that:
-
-* Takes a Job Description (JD)
-* Takes your Resume
-* Finds matching skills/projects
-* Calculates similarity
-* Identifies missing skills
-* Summarizes JDs
-* Answers questions about JDs
-* Recommends which of your projects to showcase
-
-Later:
-
-* Store Resume + JDs in ChromaDB
-* Add RAG retrieval
-* Add LLM prompting
-* Add Function Calling
-* Add Hallucination prevention
-
-By the end:
-
-```text
-Resume
-   │
-   ▼
-Embeddings
-   │
-   ▼
-Vector Database
-   │
-   ▼
-Retriever
-   │
-   ▼
-LLM
-   │
-   ▼
-Job Match Assistant
-```
-
-This aligns with:
-
-* NLP
-* LLM
-* RAG
-* HuggingFace
-* Vector Search
-* FastAPI
-
-which are exactly the skills showing up in many AI/ML Engineer roles.
+This project is being built incrementally while learning NLP, LLMs, Vector Databases, and Retrieval-Augmented Generation (RAG).
 
 ---
 
-# 2. What do we build after Week 1?
+# Learning Roadmap
 
-Week 1 = MVP (without RAG)
+## Phase 1 — NLP Foundations (Days 1-5)
 
-```text
-JD
- │
- ▼
-Tokenizer
- │
- ▼
-Embedding Model
- │
- ▼
-Similarity Score
- │
- ▼
-JD Summary
- │
- ▼
-Question Answering
-```
+Goal:
 
-Week 1 goal:
+Build a Resume ↔ Job Description Analysis MVP.
 
-> Given a JD and my resume, show similarity score, summary, and answer questions.
+Architecture:
 
----
+Resume + JD
+→ Tokenization
+→ Embeddings
+→ Similarity Analysis
+→ QA
+→ Summarization
 
-# 3. Week 1 Plan (Project-Oriented)
+### Day 1 — Tokenization Fundamentals
 
-## Day 1
+Topics:
 
-### Learn
-
-Tokenization
-
-### Project Task
-
-Use:
-
-* Resume bullets
-* Project descriptions
-* JD requirements
-
-instead of random sentences.
-
-Example:
-
-```text
-Built MLflow pipeline for experiment tracking
-
-Experience with MLOps and Docker
-
-Knowledge of NLP and Transformers
-```
-
-Compare:
-
+* NLP evolution
+* Subword tokenization
 * BERT tokenizer
 * RoBERTa tokenizer
 
-### Deliverable
+Hands-on:
 
-```text
-notebooks/
-    day01_tokenization.ipynb
-```
+* Compare tokenization of resume skills and JD requirements
+* Analyze technical words such as MLflow, FastAPI, PyTorch, Docker
 
----
+Deliverable:
 
-## Day 2
+* day01_tokenization.ipynb
 
-### Learn
+Status:
 
-input_ids
-
-attention_mask
-
-padding
-
-truncation
-
-### Project Task
-
-Take:
-
-* 3 Job Descriptions
-
-Examples:
-
-* AI Engineer
-* Data Scientist
-* NLP Engineer
-
-Tokenize using:
-
-* BERT
-* DistilBERT
-* RoBERTa
-
-Analyze:
-
-```text
-Token Count
-
-Input IDs
-
-Attention Mask
-
-Truncation
-```
-
-### Deliverable
-
-JD Tokenization Comparison Table
+* Completed
 
 ---
 
-## Day 3
+### Day 2 — Understanding Model Inputs
 
-### Learn
+Topics:
 
-Sentence Embeddings
+* input_ids
+* attention_mask
+* padding
+* truncation
+* max sequence length
 
-Cosine Similarity
+Hands-on:
 
-### Project Task
+* Analyze AG News samples
+* Analyze real AI/ML job descriptions
+* Compare BERT, DistilBERT, and RoBERTa tokenization outputs
 
-This is where the project starts becoming useful.
+Deliverable:
 
-Create:
+* day02_tokenizer_inputs.ipynb
 
-```text
-Resume Bullet
-        vs
-JD Requirement
-```
+Status:
 
-Examples:
+* Planned
 
-```text
-Built MLflow pipeline
+---
 
-Experience in MLOps
-```
+### Day 3 — Semantic Similarity
 
-```text
-Built CNN classifier
+Topics:
 
-Knowledge of NLP
-```
+* Sentence-BERT
+* Sentence embeddings
+* Cosine similarity
 
-Generate embeddings.
+Hands-on:
 
-Compute:
+* Compare resume bullets with job requirements
+* Build first skill matching engine
 
-```python
-cosine_similarity()
-```
+Deliverable:
+
+* day03_similarity_engine.ipynb
 
 Output:
 
-```text
-Resume Bullet A -> 0.92
-
-Resume Bullet B -> 0.34
-```
-
-### Deliverable
-
-Skill Match Engine v1
+* Resume ↔ JD Similarity Score
 
 ---
 
-## Day 4
+### Day 4 — Transformer Internals
 
-### Learn
+Topics:
 
-Attention
+* Self-attention
+* Query, Key, Value
+* Encoder architecture
 
-Query
+Hands-on:
 
-Key
+* Visualize attention weights
+* Compare semantic matching vs keyword matching
 
-Value
+Deliverable:
 
-### Project Task
-
-Take:
-
-```text
-Resume Bullet
-
-JD Requirement
-```
-
-Pass through DistilBERT.
-
-Visualize:
-
-```text
-Attention Scores
-```
-
-Write:
-
-```text
-Why semantic matching is better than keyword matching
-```
-
-This becomes README content later.
-
-### Deliverable
-
-1-page explanation
-
----
-
-## Day 5
-
-### Learn
-
-HF Pipelines
-
-### Project Task
-
-Build 3 mini features.
-
-### Feature 1
-
-JD Summarizer
-
-Input:
-
-```text
-Long Job Description
-```
+* day04_attention_analysis.ipynb
 
 Output:
 
-```text
-5-line Summary
-```
+* Explainability notes for project README
 
 ---
 
-### Feature 2
+### Day 5 — HuggingFace Pipelines
 
-JD QA
+Topics:
 
-Question:
+* Sentiment Analysis
+* Question Answering
+* Summarization
 
-```text
-What experience is required?
-```
+Hands-on:
 
-Answer:
+* Build JD summarizer
+* Build JD question-answering module
+* Extract required skills from JDs
 
-```text
-2+ years experience in Python
-```
+Deliverable:
 
----
-
-### Feature 3
-
-Skill Extractor
-
-Prompt-like QA:
-
-```text
-What tools are required?
-```
+* day05_pipeline_features.ipynb
 
 Output:
 
-```text
-Python
-Docker
-AWS
-MLflow
-```
+* JobFit Assistant v0.1
 
-### Deliverable
+Features:
 
-JobFit Assistant v0.1
+* JD Summary
+* JD QA
+* Skill Extraction
 
 ---
 
-# Week 1 Final Outcome
+# Phase 2 — LLM Foundations (Days 6-10)
 
-At the end of Day 5 you'll already have:
+Goal:
 
-```text
-jobfit-rag-assistant
-
-├── Resume Analyzer
-├── JD Summarizer
-├── Similarity Scorer
-├── QA on JD
-└── Skill Extractor
-```
-
-No RAG yet.
-
-No ChromaDB yet.
-
-No LLM yet.
-
-But already useful.
+Transform the NLP MVP into a RAG-ready assistant.
 
 ---
 
-# Week 2 Plan (Upgrade)
+### Day 6 — LLM Generation
 
-## Day 6
+Topics:
 
-Add LLM generation
+* Temperature
+* Top-k
+* Top-p
+* Decoding strategies
 
-Learn:
+Hands-on:
 
-```text
-Temperature
-Top-k
-Top-p
-```
+* Generate resume improvement suggestions
+* Compare different decoding settings
 
-Use it to generate:
+Deliverable:
 
-```text
-Resume improvement suggestions
-```
+* day06_llm_generation.ipynb
 
 ---
 
-## Day 7
+### Day 7 — Prompt Engineering
 
-Prompt Engineering
+Topics:
 
-Convert JD →
+* Zero-shot prompting
+* Few-shot prompting
+* Structured outputs
 
-```json
+Hands-on:
+
+* Convert JDs into structured JSON
+
+Example Output:
+
 {
-  "role": "",
-  "skills": [],
-  "experience": ""
+"role": "AI Engineer",
+"skills": ["Python", "Docker", "FastAPI"],
+"experience": "2+ years"
 }
-```
+
+Deliverable:
+
+* day07_prompt_engineering.ipynb
 
 ---
 
-## Day 8
+### Day 8 — Function Calling
 
-Function Calling
+Topics:
+
+* Tool calling
+* JSON schemas
+* Agent workflows
 
 Functions:
 
-```python
-calculate_match_score()
+* calculate_match_score()
+* summarize_jd()
+* extract_skills()
 
-summarize_jd()
+Deliverable:
 
-extract_skills()
-```
-
----
-
-## Day 9
-
-Hallucination Control
-
-Ensure assistant never says:
-
-```text
-You know LangChain
-```
-
-if your resume doesn't contain LangChain.
+* day08_function_calling.ipynb
 
 ---
 
-## Day 10
+### Day 9 — Hallucination Reduction
 
-ChromaDB
+Topics:
 
-Store:
+* Grounded responses
+* System prompts
+* Output constraints
 
-```text
-Resume
-Projects
-Job Descriptions
-```
+Hands-on:
 
-Retrieve:
+* Prevent false skill claims
+* Ensure outputs are supported by resume content
 
-```text
-Top 3 matching resume bullets
-```
+Deliverable:
 
-Now it becomes a real RAG pipeline.
+* day09_hallucination_control.ipynb
 
 ---
 
-# Final Resume Project
+### Day 10 — Vector Search & ChromaDB
 
-**JobFit RAG Assistant**
+Topics:
 
-**Tech Stack**
+* Embeddings
+* Vector databases
+* Retrieval
+
+Hands-on:
+
+* Store resumes, projects, and JDs
+* Retrieve top matching resume bullets
+
+Deliverable:
+
+* day10_vector_search.ipynb
+
+Output:
+
+* JobFit Assistant v1.0
+
+Features:
+
+* Semantic Search
+* Retrieval
+* Skill Matching
+* JD Analysis
+
+---
+
+# Final Architecture
+
+Resume + Projects + Job Descriptions
+→ Embeddings
+→ ChromaDB
+→ Retriever
+→ LLM
+→ JobFit Assistant
+
+---
+
+# Future Enhancements
+
+* FastAPI Backend
+* Streamlit UI
+* MLflow Experiment Tracking
+* Docker Deployment
+* Render Deployment
+* Multi-Resume Support
+* Automated ATS Scoring
+* Resume Tailoring Suggestions
+
+---
+
+# Tech Stack
 
 * Python
 * HuggingFace Transformers
 * Sentence Transformers
 * ChromaDB
 * FastAPI
-* MLflow (later)
-* Docker (later)
+* MLflow
+* Docker
+* Pandas
+* NumPy
 
-**Features**
+---
 
-* Resume ↔ JD Semantic Matching
-* Skill Gap Analysis
-* Job Description Summarization
+# Expected Outcome
+
+A portfolio-ready RAG application that demonstrates:
+
+* NLP Fundamentals
+* Embeddings
+* Semantic Search
+* Prompt Engineering
+* Function Calling
+* Retrieval-Augmented Generation (RAG)
+* End-to-End AI Application Development
+
+Here's the summary I would use for yourself, your README, or when explaining the project in an interview.
+
+---
+
+# Project Summary
+
+### What am I building?
+
+I am building a **JobFit RAG Assistant**, an AI-powered system that helps analyze Job Descriptions (JDs) against my resume and project portfolio.
+
+The goal is to learn modern NLP, LLMs, and RAG concepts by building one end-to-end project instead of creating separate tutorial notebooks.
+
+The system will eventually:
+
+* Analyze job descriptions
+* Match resume skills with job requirements
+* Identify skill gaps
+* Summarize job descriptions
+* Answer questions about job postings
+* Recommend relevant projects
+* Retrieve supporting evidence using RAG
+
+---
+
+# Why am I building this?
+
+While applying for AI/ML Engineer and Data Scientist roles, I frequently need to:
+
+* Read long job descriptions
+* Compare requirements with my skills
+* Identify missing skills
+* Decide which projects to highlight
+
+Instead of doing this manually, I want to build an AI assistant that can automate much of this process.
+
+This makes the project both a learning exercise and a real-world tool that I can use during my job search.
+
+---
+
+# Learning Strategy
+
+Instead of learning NLP and LLM topics separately, I am mapping every concept directly into a feature of the project.
+
+Each day of learning contributes one component to the final system.
+
+---
+
+# Week 1 — NLP Foundations
+
+### Goal
+
+Build the first working version of the JobFit Assistant without RAG or LLM generation.
+
+### What I learn
+
+* Tokenization
+* HuggingFace Tokenizers
+* Embeddings
+* Semantic Similarity
+* Transformer Attention
+* HuggingFace Pipelines
+
+### What I build
+
+#### Day 1
+
+Tokenization analysis of resume skills and job description requirements.
+
+Learn:
+
+* BERT Tokenizer
+* RoBERTa Tokenizer
+* Subword Tokenization
+
+---
+
+#### Day 2
+
+Understand how transformers receive input.
+
+Learn:
+
+* input_ids
+* attention_mask
+* padding
+* truncation
+
+Apply these concepts to real job descriptions.
+
+---
+
+#### Day 3
+
+Build the first Resume ↔ JD matching engine.
+
+Learn:
+
+* Sentence Embeddings
+* Cosine Similarity
+
+Output:
+
+```text
+Resume Skill
+     ↔
+JD Requirement
+     ↔
+Similarity Score
+```
+
+---
+
+#### Day 4
+
+Understand why semantic matching works.
+
+Learn:
+
+* Self-Attention
+* Query
+* Key
+* Value
+
+Visualize attention weights and understand transformer behavior.
+
+---
+
+#### Day 5
+
+Build useful NLP features.
+
+Learn:
+
+* Summarization
 * Question Answering
+* HuggingFace Pipelines
+
+Output:
+
+```text
+JD Summary
+JD QA
+Skill Extraction
+```
+
+---
+
+# Week 1 Result
+
+A working NLP application capable of:
+
+```text
+Job Description
+      ↓
+Tokenization
+      ↓
+Embeddings
+      ↓
+Similarity Analysis
+      ↓
+Summary
+      ↓
+Question Answering
+```
+
+This becomes:
+
+### JobFit Assistant v0.1
+
+---
+
+# Week 2 — LLM Foundations
+
+### Goal
+
+Upgrade the NLP system into an intelligent assistant.
+
+### What I learn
+
+* LLM Architecture
+* Decoding Strategies
+* Prompt Engineering
+* Function Calling
+* Hallucination Reduction
+* Vector Databases
+
+---
+
+#### Day 6
+
+Understand text generation.
+
+Learn:
+
+* Temperature
+* Top-k
+* Top-p
+
+Use generation for resume improvement suggestions.
+
+---
+
+#### Day 7
+
+Convert job descriptions into structured data.
+
+Learn:
+
+* Zero-shot Prompting
+* Few-shot Prompting
+* JSON Outputs
+
+Output:
+
+```json
+{
+  "role": "AI Engineer",
+  "skills": ["Python", "Docker"],
+  "experience": "2+ years"
+}
+```
+
+---
+
+#### Day 8
+
+Introduce tool usage.
+
+Learn:
+
+* Function Calling
+* JSON Schemas
+
+Functions:
+
+```python
+calculate_match_score()
+summarize_jd()
+extract_skills()
+```
+
+---
+
+#### Day 9
+
+Improve reliability.
+
+Learn:
+
+* Hallucination Detection
+* System Prompts
+* Output Constraints
+
+Ensure the assistant never claims skills that do not exist in my resume.
+
+---
+
+#### Day 10
+
+Add retrieval capabilities.
+
+Learn:
+
+* ChromaDB
 * Vector Search
-* RAG-based Retrieval
+* Semantic Retrieval
 
-This gives you a much stronger portfolio project than a generic "AG News Semantic Search" because it solves a real problem you've actually been facing while applying for jobs. this my current idea but for you suggest a 10 day plan based on this topic -------------------------------------------------
+Store:
 
-WEEK 1 — NLP FOUNDATIONS → TOKENIZATION → EMBEDDINGS → TRANSFORMERS → HF PIPELINES
-------------------------------------
-DAY 1 — Modern NLP Foundations & Tokenization Concepts
-What you learn
-● How NLP evolved into the transformer era
-● Why subword tokenization is necessary
-● How LLMs represent text internally
-Hands-on
-● Create 5–10 sample sentences
-● Tokenize them using BERT and RoBERTa tokenizers
-● Compare subword splits & token counts
-Dataset
-● Self-created sample sentences
-Deliverable
-Notebook comparing tokenization outputs.
-DAY 2 — HuggingFace Tokenizers (Deep Practical Understanding)
-What you learn
-● input_ids, tokens, attention_mask
-● Truncation & padding
-● Max sequence length
-Hands-on
-● Load 3 samples from the AG News dataset
-● Tokenize them using: BERT, DistilBERT, RoBERTa
-● Compare token patterns
-Dataset
-● AG News (first 3 rows)
-Deliverable
-Tokenization comparison table.
-DAY 3 — Sentence Embeddings & Semantic Similarity
-What you learn
-● How Sentence-BERT creates semantic embeddings
-● Cosine similarity as a measure of meaning
-● Differences between lexical similarity vs semantic similarity
-Hands-on
-● Encode 10 sentence pairs
-● Compute cosine similarity matrix
-● Identify strong/weak similarities
-Dataset
-● STS-B (use 10 pairs)
-Deliverable
-Similarity matrix + insights.
-DAY 4 — Transformer Architecture (Conceptual)
-What you learn
-● What self-attention does (practical intuition)
-● Query, Key, Value explained simply
-● Encoder vs Decoder differences
-Hands-on
-● Pass a sentence through DistilBERT
-● Print attention weights (even one layer is fine)
-● Write a 1-page intuitive explanation
-Dataset
-● Sample sentences
-Deliverable
-Short markdown explanation.
+* Resume
+* Projects
+* Job Descriptions
 
-DAY 5 — HuggingFace Pipelines (Sentiment, QA, Summarization)
-What you learn
-● Running NLP tasks with pipelines
-● Changing models inside pipelines
-● Interpreting logits and outputs
-Hands-on
-● Sentiment analysis → IMDB sample
-● QA → SQuAD sample
-● Summarization → CNN/DailyMail article
-Datasets
-● IMDB
-● SQuAD
-● CNN/DailyMail
-Deliverable
-Pipeline demo notebook. and after this 10 days we move to next phase ------------------------------------
-WEEK 2 — LLM BASICS → PROMPTING → FUNCTION CALLING → VECTOR SEARCH
-------------------------------------
-DAY 6 — LLM Architecture & Decoding Strategies
-What you learn
-● How GPT-style LLMs generate text
-● Temperature, top-k, top-p effects
-● Differences between major LLM families
-Hands-on
-● Generate 3 variations of output using different temperatures
-● Compare clarity, creativity, randomness
-Deliverable
-Comparative output document.
-DAY 7 — Prompt Engineering (Zero-shot,
-Few-shot, JSON)
-What you learn
-● Instruction design
-● Zero-shot vs Few-shot
-● Chain-of-Thought basics
-● Forcing structured output
-Hands-on
-● Extract information from messy text into clean JSON
-● Create 2–3 prompt variations and compare
-Dataset
-● Wikipedia paragraph copy
-Deliverable
-Reliable JSON-producing prompt.
-DAY 8 — Function Calling (LLM →
-Tools/API)
-What you learn
-● How LLMs choose which tool to call
-● JSON schema definitions
-● Tool-augmented workflows
-Hands-on
-● Create two functions (calculator operations)
-● Provide JSON schema
-● Test function calling
-Deliverable
-Working function-calling demo.
-DAY 9 — Improving Output Quality (Reducing Hallucinations)
-What you learn
-● How to spot hallucinations
-● How to constrain model behavior
-● When to use system prompts & directives
-Hands-on
-● Take a hallucinated response
-● Rewrite the prompt with constraints
-● Compare improved outputs
-Deliverable
-Before → After comparison notebook.
-DAY 10 — Vector Databases (ChromaDB) + Semantic Search
-What you learn
-● How vector stores hold embeddings
-● How top-k search retrieves context
-● Using metadata filters
-Hands-on
-● Chunk 10–15 lines of text
-● Embed & store in Chroma
-● Query and retrieve top-3 matches
-Dataset
-● Small paragraph from an article
-Deliverable
-Semantic search notebook. complete project with this topic. Did you think we can done this project by this topics?
+Retrieve:
+
+* Most relevant resume bullets
+* Most relevant projects
+
+---
+
+# Week 2 Result
+
+A RAG-ready assistant capable of:
+
+```text
+Resume
+Projects
+Job Descriptions
+      ↓
+Embeddings
+      ↓
+Vector Database
+      ↓
+Retriever
+      ↓
+LLM
+      ↓
+JobFit Assistant
+```
+
+This becomes:
+
+### JobFit Assistant v1.0
+
+---
+
+# Final Outcome
+
+By following Week 1 and Week 2, I will learn:
+
+* NLP Fundamentals
+* HuggingFace Transformers
+* Embeddings
+* Semantic Search
+* Prompt Engineering
+* Function Calling
+* Hallucination Control
+* Vector Databases
+* Retrieval-Augmented Generation (RAG)
+
+while building a single portfolio project that solves a real problem I face during my job search.
+
+In one sentence:
+
+> **I am learning NLP, LLMs, and RAG by building a JobFit Assistant that matches resumes with job descriptions, identifies skill gaps, and retrieves relevant experience using semantic search and retrieval.**
+That's actually a very important point.
+
+Your goal is **not just to build JobFit RAG Assistant**.
+
+Your real goal is:
+
+> **Every week, whatever new concepts I learn, I want to immediately apply them to one evolving project. By the end of the training program, I will have a portfolio project that demonstrates all the NLP, LLM, RAG, MLOps, and AI engineering concepts I learned throughout the journey.**
+
+A good summary would be:
+
+# Learning-Driven Project Strategy
+
+## My Goal
+
+I am currently following a structured AI/ML learning roadmap that covers NLP, LLMs, RAG, MLOps, Deep Learning, Computer Vision, and AI Engineering concepts.
+
+Instead of creating separate mini-projects every week, my goal is to continuously build and improve a single portfolio project by applying the concepts I learn each week.
+
+This approach helps me:
+
+* Reinforce newly learned concepts through implementation
+* Build practical experience instead of only theoretical knowledge
+* Create a real-world project that grows over time
+* Showcase my learning journey on GitHub
+* Demonstrate progressive AI engineering skills to recruiters
+
+---
+
+# Project Vision
+
+The project I am currently building is called:
+
+## JobFit RAG Assistant
+
+An AI-powered assistant that helps analyze job descriptions against resumes and project portfolios.
+
+The system will eventually be able to:
+
+* Analyze job descriptions
+* Match skills with job requirements
+* Identify skill gaps
+* Summarize job postings
+* Answer questions about job descriptions
+* Recommend relevant projects
+* Retrieve supporting evidence using RAG
+* Generate structured hiring insights
+
+---
+
+# Learning-to-Project Mapping
+
+The project evolves as I learn new concepts.
+
+Every week introduces new capabilities that are integrated into the system.
+
+---
+
+## Week 1 — NLP Foundations
+
+Topics Learned:
+
+* Tokenization
+* HuggingFace Tokenizers
+* Embeddings
+* Semantic Similarity
+* Transformer Architecture
+* HuggingFace Pipelines
+
+Project Features Added:
+
+* Resume and JD tokenization analysis
+* Semantic similarity scoring
+* Skill matching engine
+* Job description summarization
+* Question answering on job descriptions
+
+Result:
+
+JobFit Assistant v0.1
+
+---
+
+## Week 2 — LLM Foundations
+
+Topics Learned:
+
+* LLM Architecture
+* Decoding Strategies
+* Prompt Engineering
+* Function Calling
+* Hallucination Reduction
+* Vector Search
+
+Project Features Added:
+
+* Structured JD extraction
+* Prompt-based analysis
+* Function-calling workflows
+* Hallucination-safe outputs
+* ChromaDB integration
+* Semantic retrieval
+
+Result:
+
+JobFit Assistant v1.0
+
+---
+
+# Future Learning Integration
+
+As I continue learning new topics in upcoming weeks, I will integrate them into the same project.
+
+Examples:
+
+### If I learn:
+
+* FastAPI
+
+I will build APIs for the assistant.
+
+### If I learn:
+
+* Docker
+
+I will containerize the application.
+
+### If I learn:
+
+* MLflow
+
+I will track prompts, models, and experiments.
+
+### If I learn:
+
+* DVC
+
+I will version datasets and embeddings.
+
+### If I learn:
+
+* LangChain
+
+I will build advanced agent workflows.
+
+### If I learn:
+
+* Deployment
+
+I will deploy the application publicly.
+
+### If I learn:
+
+* Monitoring
+
+I will add logging and observability.
+
+---
+
+# Final Objective
+
+By the end of the learning program, I aim to have:
+
+* Applied every major concept through implementation
+* Built a production-style AI application
+* Maintained a clear GitHub learning history
+* Demonstrated end-to-end AI engineering skills
+
+Rather than collecting many disconnected notebooks, I will have one evolving project that showcases my complete learning journey from NLP fundamentals to advanced AI systems.
+
+In one sentence:
+
+I am continuously transforming everything I learn into features of a single AI project so that my learning roadmap directly results in a portfolio-ready application.
+
+This captures the philosophy behind your plan: **learn → implement → improve the same project → add next week's concepts → repeat**. That approach is much stronger for interviews than having 20 unrelated notebooks.
+-------------------------------------------------
+
+---
+
+# Project Build Plan (MVP) — Phase 1
+
+Shift from learning notebooks to building the actual Python package.
+
+## Structure
+
+```
+jobfit-rag-assistant/
+├── src/
+│   └── jobfit/
+│       ├── __init__.py
+│       ├── similarity.py    # Embed + cosine similarity
+│       ├── summarizer.py    # JD summarizer (HF pipeline)
+│       ├── qa.py            # QA on JD (HF pipeline)
+│       └── analyzer.py      # Orchestrator: run all + print report
+├── data/
+│   ├── jd_sentences.txt
+│   └── resume_sentences.txt
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
+---
+
+### Day 1 — Similarity Engine
+
+Goal: Create the core matching module using Sentence-BERT.
+
+Tasks:
+- Create `src/jobfit/` package
+- Create `similarity.py`:
+  - Load Sentence-BERT (`all-MiniLM-L6-v2`)
+  - Encode resume bullets + JD requirements
+  - Compute cosine similarity matrix
+  - Print top-K matching resume bullets per JD requirement
+- Test with existing `data/resume_sentences.txt` and `data/jd_sentences.txt`
+
+Deliverable:
+- `src/jobfit/__init__.py`
+- `src/jobfit/similarity.py`
+- Working similarity output
+
+Status: **In Progress**
+
+---
+
+### Day 2 — JD Summarizer + QA Pipeline
+
+Goal: Add HF pipeline modules for summarization and question answering.
+
+Tasks:
+- Create `summarizer.py` with `summarize_jd(jd_text) -> str`
+- Create `qa.py` with `answer_question(jd_text, question) -> str`
+- Test both independently
+
+Deliverable:
+- `src/jobfit/summarizer.py`
+- `src/jobfit/qa.py`
+
+Status: **Planned**
+
+---
+
+### Day 3 — Orchestrator (analyzer.py)
+
+Goal: Wire everything into a single `analyze()` function.
+
+Tasks:
+- Create `analyzer.py`
+- `analyze(resume_path, jd_path)` loads data, runs similarity → summarizer → QA
+- Prints a clean report
+
+Deliverable:
+- `src/jobfit/analyzer.py`
+- End-to-end working output
+
+Status: **Planned**
+
+---
+
+### Day 4 — Polish + Edge Cases
+
+Goal: Handle real-world inputs gracefully.
+
+Tasks:
+- Handle empty files, long JDs, multiple questions
+- Add `__main__.py` so `python -m jobfit` works
+- Test with a real JD from LinkedIn
+
+Deliverable:
+- `src/jobfit/__main__.py`
+- Robust CLI entry point
+
+Status: **Planned**
+
+---
+
+### Day 5 — README + Final Verification
+
+Goal: Document + verify everything.
+
+Tasks:
+- Update `README.md` with usage and example output
+- Create `requirements.txt` with pinned versions
+- Run final end-to-end test
+- Commit
+
+Deliverable:
+- Complete, shareable MVP
+
+Status: **Planned**
+
+---
+
+# Project Build Plan (Phase 2) — LLM + RAG
+
+Will be added after Phase 1 is complete. New modules added alongside existing ones:
+
+- `src/jobfit/llm.py` — LLM generation (temperature, top-k, top-p)
+- `src/jobfit/prompts.py` — Prompt templates, JSON extraction
+- `src/jobfit/function_caller.py` — Function calling tools
+- `src/jobfit/validator.py` — Hallucination checks
+- `src/jobfit/vector_store.py` — ChromaDB integration
