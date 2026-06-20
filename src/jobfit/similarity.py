@@ -61,15 +61,15 @@ if __name__ == "__main__":
     jd_sentences
 )
 
-for match in matches:
-    print("=" * 50)
-    print("JD:")
-    print(match["jd"])
+    for match in matches:
+        print("=" * 50)
+        print("JD:")
+        print(match["jd"])
 
-    print("\nBest Resume Match:")
-    print(match["resume"])
+        print("\nBest Resume Match:")
+        print(match["resume"])
 
-    print("\nSimilarity Score:")
-    print(f"{match['score']:.3f}")
+        print("\nSimilarity Score:")
+        print(f"{match['score']:.3f}")
 
-    print("=" * 50)
+        print("=" * 50)
