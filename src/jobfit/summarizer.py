@@ -1,21 +1,19 @@
-from transformers import AutoTokenizer
-from transformers import AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
+# transformers v5 removed summarization pipeline task
+# Using raw model directly is the correct approach for this version
 MODEL_NAME = "facebook/bart-large-cnn"
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
 
 
-
-
 def summarize_jd(jd_text):
-
     inputs = tokenizer(jd_text,
                       return_tensors="pt",
                       truncation=True,
                       max_length=1024)
-    
+
     summary_ids = model.generate(
         inputs["input_ids"],
         num_beams=4,

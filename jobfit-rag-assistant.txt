@@ -961,3 +961,264 @@ Will be added after Phase 1 is complete. New modules added alongside existing on
 - `src/jobfit/function_caller.py` — Function calling tools
 - `src/jobfit/validator.py` — Hallucination checks
 - `src/jobfit/vector_store.py` — ChromaDB integration
+
+
+(venv) PS D:\Bridgeon\Projects\jobfit-rag-assistant> python -m src.jobfit   
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 102/102 [00:00<00:00, 2881.44it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] Please make sure the generation config includes `forced_bos_token_id=0`. 
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 511/511 [00:00<00:00, 3704.75it/s]
+Loading weights: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 2421.54it/s]
+==================================================
+TOP RESUME MATCHES
+==================================================
+
+JD: Job Title: Junior Data Scientist / Forecasting Analyst
+Best Resume Match: Data Scientist | ML Engineer
+Score: 56.8%
+
+JD: Experience Required:
+Best Resume Match: Professional Experience
+Score: 70.4%
+
+JD: 3–4 Years Overall Experience
+Best Resume Match: Professional Experience
+Score: 55.5%
+
+JD: Relevant Experience:
+Best Resume Match: Professional Experience
+Score: 58.5%
+
+JD: Minimum 1.5+ Years in Data Science, Machine Learning, or Predictive Analytics
+Best Resume Match: Data Science professional with 10+ months of hands-on experience building end-to-end machine learning pipelines and MLOps systems.
+Score: 57.2%
+
+JD: About the Role
+Best Resume Match: Professional Summary
+Score: 45.6%
+
+JD: We are seeking a motivated and detail-oriented Junior Data Scientist / Forecasting Analyst to support our Data Science team in the development, execution, and maintenance of predictive analytics solutions focused on demand forecasting.
+Best Resume Match: Data Science Intern at Bridgeon Solutions.
+Score: 52.6%
+
+JD: The ideal candidate will work closely with senior data scientists and business stakeholders, contributing to data preparation, model execution, forecasting operations, and continuous process improvement.
+Best Resume Match: Data Science Intern at Bridgeon Solutions.
+Score: 56.3%
+
+JD: Key Responsibilities
+Best Resume Match: Education
+Score: 39.7%
+
+JD: Support the implementation, execution, and maintenance of demand forecasting and predictive analytics solutions.
+Best Resume Match: Olist E-Commerce Sales Dashboard.
+Score: 45.6%
+
+JD: Assist in analyzing historical sales data, demand patterns, and business variables to generate actionable insights.
+Best Resume Match: Olist E-Commerce Sales Dashboard.
+Score: 55.9%
+
+JD: Execute existing forecasting models under the guidance of senior team members.
+Best Resume Match: Created KPI reports, business insights, and executive-level recommendations.
+Score: 34.3%
+
+JD: Perform model retraining activities and generate periodic forecasts according to established schedules.
+Best Resume Match: Implemented automated CI/CD workflows and weekly data drift monitoring using EvidentlyAI.
+Score: 38.1%
+
+JD: Monitor model outputs and ensure timely delivery of forecasting results.
+Best Resume Match: Implemented automated CI/CD workflows and weekly data drift monitoring using EvidentlyAI.
+Score: 40.2%
+
+JD: Prepare, clean, and validate datasets used for predictive modeling.
+Best Resume Match: Trained and evaluated more than 15 machine learning models across supervised, unsupervised, and deep learning paradigms.
+Score: 44.7%
+
+JD: Perform data quality assessments and identify anomalies, inconsistencies, and missing data.
+Best Resume Match: Data Wrangling.
+Score: 50.2%
+
+JD: Support feature engineering activities and improve data readiness for model inputs.
+Best Resume Match: Feature Engineering.
+Score: 59.9%
+
+JD: Calculate and report forecast accuracy metrics and model performance indicators.
+Best Resume Match: Created KPI reports, business insights, and executive-level recommendations.
+Score: 40.7%
+
+JD: Monitor forecasting outputs and identify deviations, anomalies, or unexpected trends.
+Best Resume Match: Implemented automated CI/CD workflows and weekly data drift monitoring using EvidentlyAI.
+Score: 44.8%
+
+JD: Assist in automating data preparation, model execution, and prediction generation processes.
+Best Resume Match: Built a machine learning pipeline using Random Forest and Scikit-learn.
+Score: 41.8%
+
+JD: Develop and maintain Python scripts and simple data pipelines.
+Best Resume Match: Data Science professional with 10+ months of hands-on experience building end-to-end machine learning pipelines and MLOps systems.
+Score: 51.6%
+
+JD: Support workflow optimization initiatives to improve efficiency and scalability.
+Best Resume Match: Designed and deployed an end-to-end MLOps pipeline using DVC, MLflow, Docker, FastAPI, and GitHub Actions.
+Score: 48.7%
+
+JD: Prepare reports, dashboards, visualizations, and result summaries.
+Best Resume Match: Professional Summary
+Score: 53.0%
+
+JD: Maintain technical documentation for models, datasets, processes, and workflows.
+Best Resume Match: Designed and deployed an end-to-end MLOps pipeline using DVC, MLflow, Docker, FastAPI, and GitHub Actions.
+Score: 40.5%
+
+JD: Required Qualifications
+Best Resume Match: Technical Skills
+Score: 42.7%
+
+JD: Bachelor's or Master's degree in Data Science, Computer Science, Statistics, Mathematics, Engineering, Economics, or a related quantitative discipline.
+Best Resume Match: University of Calicut.
+Score: 39.4%
+
+JD: Minimum 1.5+ years of hands-on experience in Data Science, Machine Learning, Predictive Analytics, or Forecasting-related projects.
+Best Resume Match: Data Science professional with 10+ months of hands-on experience building end-to-end machine learning pipelines and MLOps systems.
+Score: 62.1%
+
+JD: Experience working with structured datasets and analytical workflows.
+Best Resume Match: Data Science Intern at Bridgeon Solutions.
+Score: 56.1%
+
+JD: Mandatory Technical Skills
+Best Resume Match: Technical Skills
+Score: 79.0%
+
+JD: Strong proficiency in Python.
+Best Resume Match: Proficient in Python, Scikit-learn, PyTorch, Docker, FastAPI, GitHub Actions, DVC, and MLflow.
+Score: 60.3%
+
+JD: Pandas.
+Best Resume Match: Pandas.
+Score: 100.0%
+
+JD: NumPy.
+Best Resume Match: NumPy.
+Score: 100.0%
+
+JD: Scikit-learn.
+Best Resume Match: Scikit-learn.
+Score: 100.0%
+
+JD: Experience with Git version control.
+Best Resume Match: Git.
+Score: 64.8%
+
+JD: Strong understanding of SQL fundamentals.
+Best Resume Match: SQL (PostgreSQL).
+Score: 53.1%
+
+JD: Understanding of machine learning fundamentals.
+Best Resume Match: Machine Learning.
+Score: 57.9%
+
+JD: Knowledge of regression techniques.
+Best Resume Match: Machine Learning.
+Score: 44.7%
+
+JD: Model validation methodologies.
+Best Resume Match: Evaluated multiple machine learning models and selected the best-performing model based on ROC-AUC.
+Score: 37.4%
+
+JD: Forecast accuracy measurements.
+Best Resume Match: Bank Marketing Subscription Prediction.
+Score: 36.8%
+
+JD: Statistical analysis concepts.
+Best Resume Match: Statistics.
+Score: 53.9%
+
+JD: Error metrics (MAE, RMSE, MAPE).
+Best Resume Match: Evaluated multiple machine learning models and selected the best-performing model based on ROC-AUC.
+Score: 34.0%
+
+JD: Data cleaning and preprocessing.
+Best Resume Match: Data Wrangling.
+Score: 57.3%
+
+JD: Data quality validation and anomaly detection.
+Best Resume Match: Data Wrangling.
+Score: 38.9%
+
+JD: Exploratory Data Analysis (EDA).
+Best Resume Match: EDA.
+Score: 55.0%
+
+JD: Preferred Skills
+Best Resume Match: Technical Skills
+Score: 59.7%
+
+JD: Demand Forecasting methodologies.
+Best Resume Match: Bank Marketing Subscription Prediction.
+Score: 43.1%
+
+JD: Time Series Analysis and Forecasting.
+Best Resume Match: Bank Marketing Subscription Prediction.
+Score: 37.7%
+
+JD: PySpark.
+Best Resume Match: Python.
+Score: 50.9%
+
+JD: Azure Databricks.
+Best Resume Match: Data Science Intern at Bridgeon Solutions.
+Score: 39.7%
+
+JD: Power BI.
+Best Resume Match: Power BI.
+Score: 100.0%
+
+JD: Tableau.
+Best Resume Match: FastAPI.
+Score: 37.7%
+
+JD: Matplotlib.
+Best Resume Match: Matplotlib.
+Score: 100.0%
+
+JD: Seaborn.
+Best Resume Match: Seaborn.
+Score: 100.0%
+
+JD: Cloud-based analytics platforms.
+Best Resume Match: Developed a Power BI dashboard analyzing over 100,000 orders.
+Score: 38.7%
+
+JD: Basic understanding of MLOps concepts and model lifecycle management.
+Best Resume Match: Designed and deployed an end-to-end MLOps pipeline using DVC, MLflow, Docker, FastAPI, and GitHub Actions.
+Score: 56.6%
+
+==================================================
+JD SUMMARY
+==================================================
+Junior Data Scientist / Forecasting Analyst is required to have 1.5+ years of hands-on experience in Data Science, Machine Learning, Predictive Analytics, or Forecasting-related projects. The ideal candidate will work closely with senior data scientists and business stakeholders.
+
+==================================================
+QUESTION ANSWERING
+==================================================
+Question: What skills are required?
+Answer: Junior Data Scientist / Forecasting Analyst
+
+==================================================
+QUESTION ANSWERING
+==================================================
+Question: What experience is required?
+Answer: Junior Data Scientist / Forecasting Analyst
+
+==================================================
+QUESTION ANSWERING
+==================================================
+Question: What forecasting skills are preferred?
+Answer: Data Science, Machine Learning, Predictive Analytics, or Forecasting - related projects. The ideal candidate will work closely with senior data scientists and business stakeholders
+
+==================================================
+QUESTION ANSWERING
+==================================================
+Question: What tools are mentioned?
+Answer: Predictive Analytics
+(venv) PS D:\Bridgeon\Projects\jobfit-rag-assistant> 
