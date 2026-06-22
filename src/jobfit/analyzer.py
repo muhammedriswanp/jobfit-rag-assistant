@@ -1,6 +1,7 @@
 from .similarity import get_best_matches, SIMILARITY_THRESHOLD
 from .qa import answer_question
 from .summarizer import summarize_jd
+from .llm import generate_text
 
 def load_sentences(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
@@ -56,6 +57,19 @@ def analyze(resume_path, jd_path):
 
         print(f"Question: {question}")
         print(f"Answer: {answer}")
+
+    low_matches = [
+        match
+        for match in matches
+        if match['score'] < SIMILARITY_THRESHOLD
+    ]
+    gap_skills = [m['jd'] for m in low_matches]
+    suggestion = generate_text(f"The candidate's resume appears weak in these areas:{', '.join(gap_skills[:3])}Suggest 3 concrete improvements to strengthen the resume.")
+
+    print("\n" + "=" * 50)
+    print("LLM SUGGESTION")
+    print("=" * 50)
+    print(suggestion)
 
 if __name__ == "__main__":
     analyze("data/resume_sentences.txt", "data/jd_sentences.txt")
