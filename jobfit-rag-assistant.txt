@@ -1,67 +1,3 @@
-WEEK 2 — LLM BASICS → PROMPTING → FUNCTION CALLING → VECTOR SEARCH
-------------------------------------
-DAY 6 — LLM Architecture & Decoding Strategies
-What you learn
-● How GPT-style LLMs generate text
-● Temperature, top-k, top-p effects
-● Differences between major LLM families
-Hands-on
-● Generate 3 variations of output using different temperatures
-● Compare clarity, creativity, randomness
-Deliverable
-Comparative output document.
-DAY 7 — Prompt Engineering (Zero-shot,
-Few-shot, JSON)
-What you learn
-● Instruction design
-● Zero-shot vs Few-shot
-● Chain-of-Thought basics
-● Forcing structured output
-Hands-on
-● Extract information from messy text into clean JSON
-● Create 2–3 prompt variations and compare
-Dataset
-● Wikipedia paragraph copy
-Deliverable
-Reliable JSON-producing prompt.
-DAY 8 — Function Calling (LLM →
-Tools/API)
-What you learn
-● How LLMs choose which tool to call
-● JSON schema definitions
-● Tool-augmented workflows
-Hands-on
-● Create two functions (calculator operations)
-● Provide JSON schema
-● Test function calling
-Deliverable
-Working function-calling demo.
-DAY 9 — Improving Output Quality (Reducing Hallucinations)
-What you learn
-● How to spot hallucinations
-● How to constrain model behavior
-● When to use system prompts & directives
-Hands-on
-● Take a hallucinated response
-● Rewrite the prompt with constraints
-● Compare improved outputs
-Deliverable
-Before → After comparison notebook.
-DAY 10 — Vector Databases (ChromaDB) + Semantic Search
-What you learn
-● How vector stores hold embeddings
-● How top-k search retrieves context
-● Using metadata filters
-Hands-on
-● Chunk 10–15 lines of text
-● Embed & store in Chroma
-● Query and retrieve top-3 matches
-Dataset
-● Small paragraph from an article
-Deliverable
-Semantic search notebook.
------------------------------------------------------
-------------------------
 Here's a 5-day Phrase 2 Build Plan mapped to your existing Phase 2 learnings (Days 6-10), but as actual project modules — not notebooks.
 Phase 2 — Build Plan: 5 Days → JobFit Assistant v1.0
 Day 1 — llm.py (LLM Generation) ✅ COMPLETE (2026-06-22)
@@ -132,3 +68,121 @@ Questions before I write this into jobfit-rag-assistant.txt
 1. LLM choice: Phi-3-mini (3.8B, best quality) or SmolLM2 (1.7B, faster)? Your laptop can run either.
 2. ChromaDB or FAISS: Plan says ChromaDB — good for portfolio (DB features, metadata filtering)?
 3. Want the agent loop? Day 3's function-calling agent makes the flow LLM-driven — cool for portfolio, but adds complexity. Worth it?
+
+
+------------ what i done today day 7
+Got it — **Day 7 = Phase 2 Build Day 2 → `prompts.py`**. Colab first, then copy to `src/jobfit/prompts.py`.
+
+Here's your execution roadmap:
+
+---
+
+## Day 7 Execution Plan — `prompts.py`
+
+### Stage 1 — Colab Setup (15 min)
+- Open a new notebook: `notebook/day7_prompts.ipynb`
+- Mount Drive, install deps (`transformers`, `torch`)
+- Import your `llm.py` code (paste it in or load from Drive)
+- Load SmolLM2 model once at top
+
+---
+
+### Stage 2 — Build Prompt Templates (30 min)
+Write 3 prompt functions in a cell:
+
+```
+extract_skills_prompt(jd_text)     → few-shot → JSON
+summarize_role_prompt(jd_text)     → zero-shot → 2-line summary  
+gap_analysis_prompt(resume, jd)    → zero-shot → bullet gaps
+```
+
+Key rule: **few-shot for JSON extraction** (SmolLM2 needs examples to stay on format), zero-shot is fine for summaries.
+
+---
+
+### Stage 3 — Build `extract_structured_jd()` (30 min)
+```
+extract_structured_jd(jd_text) → dict:
+  {
+    "role": str,
+    "skills": [list],
+    "experience": str,
+    "tools": [list]
+  }
+```
+Flow inside the function:
+```
+prompt = extract_skills_prompt(jd_text)
+raw_output = generate_text(prompt)        # from llm.py
+parsed = parse_json_safe(raw_output)      # strip ```json fences, then json.loads()
+return parsed
+```
+
+Write `parse_json_safe()` as a helper — strips markdown fences, handles decode errors gracefully.
+
+---
+
+### Stage 4 — Temperature/Few-shot Experiment (20 min)
+Run on **2 different JDs** (one technical ML JD, one generic):
+- Zero-shot vs few-shot → which gives cleaner JSON?
+- Save results to `experiments/prompts_comparison.md`
+
+This is your **key insight cell** for the notebook.
+
+---
+
+### Stage 5 — Copy to Project (15 min)
+Once Colab outputs look clean:
+- Copy prompt functions → `src/jobfit/prompts.py`
+- Copy `parse_json_safe` → same file or `utils.py`
+- Update `analyzer.py` — call `extract_structured_jd()` and print a **"Structured JD"** section at the top of the report
+
+---
+
+### Stage 6 — Quick Smoke Test Locally (10 min)
+```bash
+python -m jobfit --resume data/resume.txt --jd data/jd.txt
+```
+Check that the Structured JD section appears in the report output.
+
+---
+
+## Notebook Cell Order (Colab)
+
+| Cell | Purpose |
+|------|---------|
+| 1 | Install + imports |
+| 2 | Load SmolLM2 (from llm.py code) |
+| 3 | `extract_skills_prompt()` with few-shot |
+| 4 | `summarize_role_prompt()` zero-shot |
+| 5 | `gap_analysis_prompt()` zero-shot |
+| 6 | `parse_json_safe()` helper |
+| 7 | `extract_structured_jd()` full function |
+| 8 | Test on JD #1 → print dict |
+| 9 | Test on JD #2 → print dict |
+| 10 | Zero-shot vs few-shot comparison |
+| 11 | Save experiment notes |
+
+---
+
+**Estimated total time: ~2 hours**
+
+Want me to write the actual code for Stage 2 and 3 now so you can paste directly into Colab?
+
+this is my plan COMPLETE
+
+Stage 1 — Colab Setup (15 min)
+
+Open a new notebook: notebook/day7_prompts.ipynb
+Mount Drive, install deps (transformers, torch)
+Import your llm.py code (paste it in or load from Drive)
+Load SmolLM2 model once at top
+
+
+Stage 2 — Build Prompt Templates (30 min)
+Write 3 prompt functions in a cell:
+extract_skills_prompt(jd_text)     → few-shot → JSON
+summarize_role_prompt(jd_text)     → zero-shot → 2-line summary  
+gap_analysis_prompt(resume, jd)    → zero-shot → bullet gaps
+Key rule: few-shot for JSON extraction (SmolLM2 needs examples to stay on format), zero-shot is fine for summaries.
+----

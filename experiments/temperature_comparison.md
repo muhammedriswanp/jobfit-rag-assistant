@@ -28,6 +28,12 @@
 
 **Observation:** Longest output. Adds entirely new dimensions — collaboration, production deployment, continuous evaluation. Mentions specific algorithm types. Slightly less coherent structure but most detailed.
 
+## gap_analysis_prompt — Hallucination observed
+- Model falsely flagged Docker as missing despite being in resume
+- Root cause: SmolLM2 small context window, missed skill mid-sentence
+- Fix: validator.py will cross-check LLM claims against resume text (Day 4)
+
+
 ---
 
 ## Summary
@@ -39,3 +45,8 @@
 | 1.2 | Expansive, varied | High | High |
 
 **Recommendation for jobfit-rag-assistant:** Use **0.7** as default — balances coherence with useful variation.
+
+## Known Limitation — Long JD Truncation
+- SmolLM2-1.7B context window overflows on full `real_jd.txt` (107 lines)
+- `extract_structured_jd()` returns empty when prompt exceeds model capacity
+- Fix: Chunking + RAG (Day 10 — vector_store.py)
