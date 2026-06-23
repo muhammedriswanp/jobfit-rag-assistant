@@ -2,6 +2,7 @@ from .similarity import get_best_matches, SIMILARITY_THRESHOLD
 from .qa import answer_question
 from .summarizer import summarize_jd
 from .llm import generate_text
+from .prompts import extract_structured_jd
 
 def load_sentences(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
@@ -34,6 +35,15 @@ def analyze(resume_path, jd_path):
         print(f"Score: {match['score'] * 100:.1f}%")
     
     jd_text = "\n".join(jd_sentences)
+
+    structured = extract_structured_jd(jd_text)
+    print("\n" + "=" * 50)
+    print("STRUCTURED JD")
+    print("=" * 50)
+    print(f"Role: {structured['role']}")
+    print(f"Skills: {', '.join(structured['skills'])}")
+    print(f"Experience: {structured['experience']}")
+    print(f"Tools: {', '.join(structured['tools'])}")
 
     summary = summarize_jd(jd_text)
     print("\n" + "=" * 50)

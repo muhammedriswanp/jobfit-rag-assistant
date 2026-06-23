@@ -37,4 +37,7 @@ notebook/
 └── test_colab.ipynb  # Colab notebook for GPU-accelerated testing
 experiments/
 └── temperature_comparison.md  # Day 1 temperature experiment results
+
+## Limitations
+- **Context window:** SmolLM2-1.7B struggles with JDs >30 lines. Chunking and RAG retrieval will be added (Day 10) to handle long documents.
 ```
