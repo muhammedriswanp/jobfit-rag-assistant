@@ -1,6 +1,10 @@
 from .similarity import get_best_matches, SIMILARITY_THRESHOLD
-from .analyzer import load_sentences
 from .llm import generate_text
+
+
+def load_sentences(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        return [line.strip() for line in f if line.strip()]
 
 
 def calculate_match_score(resume_path, jd_path):

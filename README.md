@@ -1,43 +1,81 @@
 # JobFit RAG Assistant
 
-AI-powered resume ↔ job description analyzer. Scores skill fit, summarizes JDs, answers questions, and generates gap-analysis suggestions using a local LLM.
+Resume vs job description analyzer powered by a local LLM (SmolLM2-1.7B). Compares skills, scores fit, and answers queries through an LLM-driven agent loop.
 
-## Quick Start
+## Features
+
+- **Match Scoring** — Sentence-BERT embeddings + cosine similarity to score resume-JD alignment
+- **Skill Extraction** — Extracts technical and professional skills from any text
+- **JD Summarization** — Condenses job descriptions into key points
+- **Tool Agent** — LLM decides which tool to call based on your natural language query
+
+## Installation
 
 ```bash
+git clone https://github.com/muhammedriswanp/jobfit-rag-assistant.git
+cd jobfit-rag-assistant
 pip install -r requirements.txt
-python -m src.jobfit
 ```
 
-## How It Works
+## Usage
 
-1. **Similarity Engine** — Sentence-BERT (`all-MiniLM-L6-v2`) embeds resume + JD sentences, then cosine similarity finds top matches
-2. **JD Summarizer** — BART (`facebook/bart-large-cnn`) condenses the job description
-3. **QA Pipeline** — DistilBERT (`distilbert-base-cased-distilled-squad`) answers questions about the JD
-4. **LLM Generation** — SmolLM2-1.7B-Instruct (`AutoModelForCausalLM`) generates resume improvement suggestions for skill gaps
-5. **Integration** — `analyzer.py` orchestrates all modules and prints a full report
+### CLI
 
-## Notes
+```bash
+# Default — match score
+python -m src.jobfit
 
-- Uses raw model classes (`AutoTokenizer` + `AutoModelForSeq2SeqLM`/`AutoModelForCausalLM`) instead of `pipeline()` because **transformers v5 removed several pipeline tasks**. The raw approach is equivalent and the standard recommendation for v5.
-- LLM uses lazy loading — model is loaded only on first `generate_text()` call (not at import time).
+# Summarize a job description
+python -m src.jobfit "Summarize this job description for me"
+
+# Extract skills from resume
+python -m src.jobfit "What skills are in this resume?"
+```
+
+### Python API
+
+```python
+from src.jobfit import (
+    run_tool_workflow,
+    calculate_match_score,
+    extract_skills,
+    summarize_jd_llm,
+)
+
+# Tool agent — LLM routes your query to the right tool
+result = run_tool_workflow(
+    "How well does my resume match this job?",
+    context={"resume_path": "data/resume_sentences.txt", "jd_path": "data/jd_sentences.txt"},
+    verbose=True,
+)
+print(result["answer"])
+
+# Or call tools directly
+skills = extract_skills("Experienced software engineer skilled in Python, Java, and C++.")
+print(skills)
+```
 
 ## Project Structure
 
 ```
 src/jobfit/
-├── __init__.py
-├── __main__.py       # CLI entry point
-├── similarity.py     # Sentence embedding + cosine matching
-├── summarizer.py     # BART summarization
-├── qa.py             # DistilBERT extractive QA
-├── llm.py            # SmolLM2 causal LM generation (Phase 2)
-└── analyzer.py       # Orchestrator: runs all modules + prints report
-notebook/
-└── test_colab.ipynb  # Colab notebook for GPU-accelerated testing
-experiments/
-└── temperature_comparison.md  # Day 1 temperature experiment results
-
-## Limitations
-- **Context window:** SmolLM2-1.7B struggles with JDs >30 lines. Chunking and RAG retrieval will be added (Day 10) to handle long documents.
+├── __init__.py            # Package exports
+├── __main__.py            # CLI entry point
+├── function_caller.py     # LLM-driven tool agent loop
+├── llm.py                 # SmolLM2 text generation
+├── similarity.py          # Sentence embedding + cosine matching
+└── tools.py               # Tool implementations
+data/
+├── resume_sentences.txt
+└── jd_sentences.txt
 ```
+
+## Tech Stack
+
+| Component | Model / Library |
+|---|---|
+| LLM Agent | HuggingFaceTB/SmolLM2-1.7B-Instruct |
+| Embeddings | all-MiniLM-L6-v2 (sentence-transformers) |
+| Similarity | scikit-learn cosine similarity |
+
+
