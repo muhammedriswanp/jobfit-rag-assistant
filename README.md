@@ -8,6 +8,7 @@ Resume vs job description analyzer powered by a local LLM (SmolLM2-1.7B). Compar
 - **Skill Extraction** — Extracts technical and professional skills from any text
 - **JD Summarization** — Condenses job descriptions into key points
 - **Tool Agent** — LLM decides which tool to call based on your natural language query
+- **Hallucination Control** — Validates LLM outputs against resume text and expected schemas
 
 ## Installation
 
@@ -64,7 +65,8 @@ src/jobfit/
 ├── function_caller.py     # LLM-driven tool agent loop
 ├── llm.py                 # SmolLM2 text generation
 ├── similarity.py          # Sentence embedding + cosine matching
-└── tools.py               # Tool implementations
+├── tools.py               # Tool implementations (match, extract, summarize)
+└── validator.py           # Hallucination control + schema validation
 data/
 ├── resume_sentences.txt
 └── jd_sentences.txt
@@ -77,5 +79,3 @@ data/
 | LLM Agent | HuggingFaceTB/SmolLM2-1.7B-Instruct |
 | Embeddings | all-MiniLM-L6-v2 (sentence-transformers) |
 | Similarity | scikit-learn cosine similarity |
-
-
