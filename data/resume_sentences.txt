@@ -1,5 +1,0 @@
-Built MLflow pipeline for experiment tracking.
-Implemented DVC for dataset versioning.
-Developed CNN models using PyTorch.
-Created FastAPI applications for deployment.
-Built customer segmentation machine learning pipeline.
