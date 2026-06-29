@@ -3,6 +3,7 @@ import re
 from .llm import generate_text
 from .tools import calculate_match_score, extract_skills, summarize_jd_llm
 from .validator import validate_json
+from .vector_store import add_to_collection, resume_collection, jd_collection
 
 
 # ── Tool schemas (for documentation/future use) ───────────────────────────────
@@ -61,15 +62,6 @@ RESULT_SCHEMAS = {
 }
 
 
-# ── Text splitter ─────────────────────────────────────────────────────────────
-def _split_sentences(text: str) -> list:
-    """Split raw text into sentences for embedding."""
-    sentences = [s.strip() for s in text.split(".") if s.strip()]
-    if not sentences:
-        raise ValueError("Text is empty — cannot split into sentences.")
-    return sentences
-
-
 # ── Parser ────────────────────────────────────────────────────────────────────
 def parse_tool_call(response: str):
     """Expects LLM to return: {"name": "tool_name"}"""
@@ -102,13 +94,17 @@ def _keyword_fallback(query: str):
 
 
 # ── Main agent loop ───────────────────────────────────────────────────────────
-def run_tool_workflow(user_query: str, context: dict = None, verbose: bool = True):
-    """
-    context keys:
-        resume_text  → raw resume text (used by calculate_match_score + extract_skills)
-        jd_text      → raw JD text    (used by calculate_match_score + summarize_jd)
-    """
-    context = context or {}
+def run_tool_workflow(user_query: str, resume_text: str, jd_text: str, verbose: bool = True):
+    
+    # store in ChromaDB at start of every run
+    resume_chunks = [s.strip() for s in resume_text.split(".") if s.strip()]
+    jd_chunks     = [s.strip() for s in jd_text.split(".") if s.strip()]
+    
+    add_to_collection(resume_collection, resume_chunks, "resume")
+    add_to_collection(jd_collection, jd_chunks, "jd")
+    
+    # rest of workflow continues as normal...
+
 
     if verbose:
         print(f"\n{'='*50}")
@@ -161,20 +157,8 @@ User: {user_query}
     if tool_name not in TOOL_REGISTRY:
         return {"answer": f"Unknown tool: {tool_name}", "tool": tool_name, "routing": routing}
 
-    # Build parameters from text context
-    if tool_name == "calculate_match_score":
-        params = {
-            "resume_sentences": _split_sentences(context.get("resume_text", "")),
-            "jd_sentences":     _split_sentences(context.get("jd_text", ""))
-        }
-    elif tool_name == "summarize_jd":
-        params = {"jd_text": context.get("jd_text", "")}
-    elif tool_name == "extract_skills":
-        text   = context.get("resume_text") or context.get("jd_text") or ""
-        params = {"text": text}
-
     try:
-        result = TOOL_REGISTRY[tool_name](**params)
+        result = TOOL_REGISTRY[tool_name]()
         if verbose:
             print(f"[Result] {result}")
     except Exception as e:
@@ -201,14 +185,10 @@ Give a clear, short final answer based on the result."""
 
 
 if __name__ == "__main__":
-    sample_context = {
-        "resume_text": "Experienced software engineer skilled in Python, C++, and data structures. Strong background in building scalable systems.",
-        "jd_text":     "We are looking for an AI Engineer with experience in Python, Machine Learning, Docker, FastAPI and MLOps.",
-    }
     tests = [
-        ("How well does my resume match this job?", sample_context),
-        ("Summarize this job description for me",   {"jd_text": sample_context["jd_text"]}),
-        ("What skills are in this resume?",         {"resume_text": sample_context["resume_text"]}),
+        "How well does my resume match this job?",
+        "Summarize this job description for me",
+        "What skills are in this resume?",
     ]
-    for q, ctx in tests:
-        out = run_tool_workflow(q, context=ctx, verbose=True)
+    for q in tests:
+        out = run_tool_workflow(q, verbose=True)

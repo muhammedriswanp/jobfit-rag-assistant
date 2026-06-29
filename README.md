@@ -8,7 +8,8 @@ Resume vs job description analyzer powered by a local LLM (SmolLM2-1.7B). Compar
 - **Skill Extraction** — Extracts technical and professional skills from any text
 - **JD Summarization** — Condenses job descriptions into key points
 - **Tool Agent** — LLM decides which tool to call based on your natural language query
-- **Hallucination Control** — Validates LLM outputs against resume text and expected schemas
+- **Hallucination Control** — Validates LLM outputs against expected schemas
+- **ChromaDB Vector Store** — In-memory semantic retrieval of resume and JD chunks per session
 
 ## Installation
 
@@ -18,19 +19,14 @@ cd jobfit-rag-assistant
 pip install -r requirements.txt
 ```
 
+> **Note on hardware**: The models used (SmolLM2-1.7B-Instruct + all-MiniLM-L6-v2) require significant GPU memory and RAM. All testing and development were done inside the `notebooks/` directory on Google Colab due to local GPU/RAM constraints.
+
 ## Usage
 
 ### CLI
 
 ```bash
-# Default — match score
 python -m src.jobfit
-
-# Summarize a job description
-python -m src.jobfit "Summarize this job description for me"
-
-# Extract skills from resume
-python -m src.jobfit "What skills are in this resume?"
 ```
 
 ### Python API
@@ -46,7 +42,8 @@ from src.jobfit import (
 # Tool agent — LLM routes your query to the right tool
 result = run_tool_workflow(
     "How well does my resume match this job?",
-    context={"resume_path": "data/resume_sentences.txt", "jd_path": "data/jd_sentences.txt"},
+    resume_text="...",
+    jd_text="...",
     verbose=True,
 )
 print(result["answer"])
@@ -56,20 +53,30 @@ skills = extract_skills("Experienced software engineer skilled in Python, Java, 
 print(skills)
 ```
 
+### Notebook (recommended for testing)
+
+Due to GPU/RAM requirements, the recommended way to test is via the Colab-compatible notebook:
+
+```
+notebooks/jobfit_function_caller.ipynb
+```
+
+This notebook lazy-loads models so the embedding model and LLM are never in RAM simultaneously.
+
 ## Project Structure
 
 ```
 src/jobfit/
 ├── __init__.py            # Package exports
 ├── __main__.py            # CLI entry point
-├── function_caller.py     # LLM-driven tool agent loop
-├── llm.py                 # SmolLM2 text generation
+├── function_caller.py     # LLM-driven tool agent loop with keyword fallback
+├── llm.py                 # SmolLM2 text generation (lazy-loaded)
 ├── similarity.py          # Sentence embedding + cosine matching
 ├── tools.py               # Tool implementations (match, extract, summarize)
-└── validator.py           # Hallucination control + schema validation
-data/
-├── resume_sentences.txt
-└── jd_sentences.txt
+├── validator.py           # Schema validation for hallucination control
+└── vector_store.py        # ChromaDB vector store for semantic retrieval
+notebooks/
+└── jobfit_function_caller.ipynb   # Colab-compatible test notebook
 ```
 
 ## Tech Stack
@@ -79,3 +86,4 @@ data/
 | LLM Agent | HuggingFaceTB/SmolLM2-1.7B-Instruct |
 | Embeddings | all-MiniLM-L6-v2 (sentence-transformers) |
 | Similarity | scikit-learn cosine similarity |
+| Vector Store | ChromaDB (EphemeralClient — in-memory per session) |
