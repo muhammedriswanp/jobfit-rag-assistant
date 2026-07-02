@@ -94,11 +94,11 @@ def _keyword_fallback(query: str):
 
 
 # ── Main agent loop ───────────────────────────────────────────────────────────
-def run_tool_workflow(user_query: str, resume_text: str, jd_text: str, verbose: bool = True):
+def run_tool_workflow(user_query: str, resume_chunks: str, jd_chunks: str, verbose: bool = True):
     
     # store in ChromaDB at start of every run
-    resume_chunks = [s.strip() for s in resume_text.split(".") if s.strip()]
-    jd_chunks     = [s.strip() for s in jd_text.split(".") if s.strip()]
+    resume_chunks = [s.strip() for s in resume_chunks.split(".") if s.strip()]
+    jd_chunks     = [s.strip() for s in jd_chunks.split(".") if s.strip()]
     
     add_to_collection(resume_collection, resume_chunks, "resume")
     add_to_collection(jd_collection, jd_chunks, "jd")

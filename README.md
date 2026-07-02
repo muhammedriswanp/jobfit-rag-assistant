@@ -11,6 +11,11 @@ Resume vs job description analyzer powered by a local LLM (SmolLM2-1.7B). Compar
 - **Hallucination Control** — Validates LLM outputs against expected schemas
 - **ChromaDB Vector Store** — In-memory semantic retrieval of resume and JD chunks per session
 
+## Setup
+Place your files in `data/`:
+- `data/resume.pdf` — your resume
+- `data/jd.pdf` — the job description
+
 ## Installation
 
 ```bash

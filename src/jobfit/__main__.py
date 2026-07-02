@@ -1,12 +1,15 @@
+import sys 
 from .function_caller import run_tool_workflow
+from .ingestion import load_pdf
 
-resume_text = """Experienced software engineer skilled in Python, C++ and data structures.
-Built and deployed ML models using scikit-learn and PyTorch.
-Used Docker and FastAPI to containerize and serve REST APIs."""
+resume_path = sys.argv[1] if len(sys.argv) > 1 else "data/resume.pdf"
+jd_path = sys.argv[2] if len(sys.argv) > 2 else "data/jd.pdf"
 
-jd_text = """We are looking for an AI Engineer with experience in Python and Machine Learning.
-Candidate must know Docker, FastAPI and MLOps tools.
-Experience with model deployment and monitoring is required."""
+resume_chunks = load_pdf(resume_path)
+jd_chunks     = load_pdf(jd_path)
+
+print(f"Resume: {len(resume_chunks)} chunks")
+print(f"JD:     {len(jd_chunks)} chunks")
 
 tests = [
     "How well does my resume match this job?",
@@ -15,4 +18,4 @@ tests = [
 ]
 
 for q in tests:
-    run_tool_workflow(q, resume_text=resume_text, jd_text=jd_text, verbose=True)
+    run_tool_workflow(q, resume_chunks=resume_chunks, jd_chunks=jd_chunks, verbose=True)
